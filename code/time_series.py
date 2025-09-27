@@ -69,7 +69,7 @@ def plot_ratings(tvshow):
     plt.xticks(x_ticks, x_labels)
 
     plt.grid(True, alpha=0.3)
-    plt.savefig(f'time_series/{tvshow}_time_series.png')
+    plt.savefig(f'graphs/time_series/{tvshow}_time_series.png')
     plt.show()
     print(f"Saved {tvshow} time series")
     print("\n"*3)

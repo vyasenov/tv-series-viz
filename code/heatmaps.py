@@ -26,7 +26,7 @@ for show in list_of_shows:
     plt.figure(figsize=(10, 10))
     sns.heatmap(data, annot=True, cmap='coolwarm', cbar=False, square=True)
     plt.title(f'{show.strip("_").replace("_", " ").title()} Ratings Heatmap')
-    plt.savefig(f'heatmaps/{show}_heatmap.png')
+    plt.savefig(f'graphs/heatmaps/{show}_heatmap.png')
     plt.show()
     print(f"Saved {show} heatmap")
     print("\n"*3)
