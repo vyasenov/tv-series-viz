@@ -1,9 +1,5 @@
-Stranger Things
 Downton Abbey
 Handmaid's Tale
-
---------
-
 Boardwalk Empire
 The Americans
 House of Cards
@@ -16,4 +12,3 @@ Mad Men
 This Is Us
 Orange Is the New Black
 Homeland
-Lost
