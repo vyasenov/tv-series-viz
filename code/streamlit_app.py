@@ -102,7 +102,7 @@ if selected_shows:
         ),
         xaxis=dict(
             title="Season",
-            titlefont=dict(size=14),
+            title_font=dict(size=14),
             tickmode='array',
             tickvals=[i + 0.5 for i in range(1, max_season + 1)],
             ticktext=[str(i) for i in range(1, max_season + 1)],
@@ -111,7 +111,7 @@ if selected_shows:
         ),
         yaxis=dict(
             title="IMDB Rating",
-            titlefont=dict(size=14),
+            title_font=dict(size=14),
             gridcolor='lightgray',
             gridwidth=1
         ),
