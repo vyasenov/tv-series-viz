@@ -1,3 +1,8 @@
+"""
+This script generates heatmaps of ratings for each TV series.
+"""
+
+# load libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns

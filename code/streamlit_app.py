@@ -67,10 +67,10 @@ def get_available_shows():
 
 # Main app
 st.title("📺 TV Series Ratings")
+st.caption('Created by <a href="https://vyasenov.github.io/" target="_blank">Vasco Yasenov</a>', unsafe_allow_html=True)
 
 # Get available shows
 available_shows = get_available_shows()
-print(available_shows)
 
 # Multi-select dropdown
 selected_shows = st.multiselect(
@@ -109,7 +109,7 @@ if selected_shows:
                 line=dict(color=color, width=3),
                 marker=dict(size=3),
                 showlegend=show_legend,
-                hovertemplate="%{y:.2f}<extra>"+show_name+"</extra>"
+                hovertemplate=show_name + ": %{y:.2f}<extra></extra>"
             ))
     
     # Add season boundaries
@@ -140,6 +140,7 @@ if selected_shows:
         paper_bgcolor="#1B2230",  # soft gray to match secondary background
         plot_bgcolor="#1B2230",   # same soft gray within plot area
         font=dict(color="#EAEAEA"),  # match app text color
+        hoverlabel=dict(font=dict(color="white", size=18), bgcolor="#1B2230"),
         legend=dict(
             orientation="v",
             yanchor="top",

@@ -1,3 +1,8 @@
+"""
+This script generates time series plots for each TV series.
+"""
+
+
 # load libraries
 import pandas as pd
 import matplotlib.pyplot as plt
