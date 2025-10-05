@@ -10,7 +10,7 @@ def get_available_shows():
     return sorted([f.replace('_ratings.csv', '') for f in csv_files])
 
 list_of_shows = get_available_shows()
-list_of_shows = list_of_shows[:1]
+list_of_shows = list_of_shows #[1:2]
 print(list_of_shows)
 
 # process each show

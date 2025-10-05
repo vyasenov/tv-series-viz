@@ -9,6 +9,7 @@ def lowess_smooth(group, frac=0.8, it=3):
     x = group['episode']
     y = group['rating']
     group['rating_lowess'] = sm.nonparametric.lowess(y, x, frac=frac, return_sorted=False ,it=it)
+    group['season'] = group.name  # add back the grouping key
     return group
 
 # grab list of shows
@@ -34,7 +35,7 @@ def plot_ratings(tvshow):
     #data['episode_norm'] = data.groupby('season').apply(normalize_episode).reset_index(level=0, drop=True) + data['season'] - 1
     data['episode_norm'] = data.groupby('season')['episode'].transform(lambda x: 1 + (x - 1) / (len(x) - 1) if len(x) > 1 else 1.0) + data['season'] - 1
     # apply LOWESS smoothing to ratings within a season
-    data = data.groupby('season', group_keys=False).apply(lowess_smooth)
+    data = data.groupby('season', group_keys=False).apply(lowess_smooth, include_groups=False)
 
     # save season endpoints (for vertical lines)
     season_endpoints = list(range(2, data['season'].max() + 1))
@@ -68,15 +69,14 @@ def plot_ratings(tvshow):
     x_labels = [str(i) for i in range(1, max_season + 1)]
     plt.xticks(x_ticks, x_labels)
 
-    plt.grid(True, alpha=0.3)
+    #plt.grid(True, alpha=0.3)
     plt.savefig(f'graphs/time_series/{tvshow}_time_series.png')
     plt.show()
     print(f"Saved {tvshow} time series")
     print("\n"*3)
 
 # get list of shows
-list_of_shows = get_available_shows()
-list_of_shows = list_of_shows[:2]
+list_of_shows = get_available_shows() #[1:2]
 print(list_of_shows)
 
 # loop through each show

@@ -3,12 +3,32 @@ import pandas as pd
 import plotly.graph_objects as go
 import statsmodels.api as sm
 import os
+import plotly.express as px  # NEW
+
+st.set_page_config(  # NEW
+    page_title="TV Series Ratings",
+    page_icon="📺",
+    layout="wide",
+)
+
+st.markdown("""
+    <style>
+    /* Round and clip Plotly chart container */
+    div[data-testid="stPlotlyChart"] > div {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.08); /* optional subtle border */
+        background: transparent; /* let Plotly control its own bg */
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Helper functions from your existing code
 def lowess_smooth(group, frac=0.8, it=3):
     x = group['episode']
     y = group['rating']
     group['rating_lowess'] = sm.nonparametric.lowess(y, x, frac=frac, return_sorted=False, it=it)
+    group['season'] = group.name  # add back the grouping key
     return group
 
 def normalize_episode(group):
@@ -37,7 +57,7 @@ def load_show_data(show_name):
         episode_norm_values.extend(norm_values)
     
     data['episode_norm'] = episode_norm_values + data['season'] - 1
-    data = data.groupby('season', group_keys=False).apply(lowess_smooth)
+    data = data.groupby('season', group_keys=False).apply(lowess_smooth, include_groups=False)
     return data
 
 def get_available_shows():
@@ -51,11 +71,13 @@ st.title("📺 TV Series Ratings")
 # Get available shows
 available_shows = get_available_shows()
 
+
 # Multi-select dropdown
 selected_shows = st.multiselect(
     "Select shows to compare:",
     options=available_shows,
-    default=available_shows[:2] if len(available_shows) >= 2 else available_shows,
+    #default=available_shows[3:5] if len(available_shows) >= 2 else available_shows,
+    default=['succession', 'westworld'],
     format_func=lambda x: x.replace('_', ' ').title()
 )
 
@@ -63,8 +85,9 @@ if selected_shows:
     # Create plot
     fig = go.Figure()
     
-    colors = ['darkblue', 'red', 'green', 'orange', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan']
-    
+    # Calmer palette that works on dark backgrounds
+    colors = px.colors.qualitative.Bold
+        
     for i, show in enumerate(selected_shows):
         data = load_show_data(show)
         color = colors[i % len(colors)]
@@ -84,40 +107,39 @@ if selected_shows:
                 name=show_name if show_legend else None,
                 legendgroup=show_name,  # Group all seasons of the same show
                 line=dict(color=color, width=3),
-                marker=dict(size=4),
-                showlegend=show_legend
+                marker=dict(size=3),
+                showlegend=show_legend,
+                hovertemplate="%{y:.2f}<extra>"+show_name+"</extra>"
             ))
     
     # Add season boundaries
     if selected_shows:
         max_season = max([load_show_data(show)['season'].max() for show in selected_shows])
         for boundary in range(2, max_season + 1):
-            fig.add_vline(x=boundary, line_dash="dash", line_color="red", opacity=0.7, line_width=1)
+            fig.add_vline(x=boundary, line_dash="dash", line_color="gray", opacity=0.7, line_width=1)
     
     # Update layout with better styling
     fig.update_layout(
-        title=dict(
-            text="TV Series Ratings Timeline",
-            font=dict(size=20)
-        ),
         xaxis=dict(
             title="Season",
-            title_font=dict(size=14),
+            title_font=dict(size=20),
             tickmode='array',
             tickvals=[i + 0.5 for i in range(1, max_season + 1)],
             ticktext=[str(i) for i in range(1, max_season + 1)],
-            gridcolor='lightgray',
-            gridwidth=1
+            tickfont=dict(size=16),
+            showgrid=False
         ),
         yaxis=dict(
             title="IMDB Rating",
-            title_font=dict(size=14),
-            gridcolor='lightgray',
-            gridwidth=1
+            title_font=dict(size=20),
+            tickfont=dict(size=16),
+            showgrid=False
         ),
         height=700,
         width=1000,
-        plot_bgcolor='white',
+        paper_bgcolor="#1B2230",  # soft gray to match secondary background
+        plot_bgcolor="#1B2230",   # same soft gray within plot area
+        font=dict(color="#EAEAEA"),  # match app text color
         legend=dict(
             orientation="v",
             yanchor="top",
