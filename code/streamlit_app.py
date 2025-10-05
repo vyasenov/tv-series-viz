@@ -70,7 +70,7 @@ st.title("📺 TV Series Ratings")
 
 # Get available shows
 available_shows = get_available_shows()
-
+print(available_shows)
 
 # Multi-select dropdown
 selected_shows = st.multiselect(
@@ -145,7 +145,8 @@ if selected_shows:
             yanchor="top",
             y=1,
             xanchor="left",
-            x=1.02
+            x=1.02,
+            font=dict(size=18)
         )
     )
     
