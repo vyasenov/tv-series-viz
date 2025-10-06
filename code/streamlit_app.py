@@ -6,7 +6,7 @@ import os
 import plotly.express as px  # NEW
 
 st.set_page_config(  # NEW
-    page_title="TV Series Ratings",
+    page_title="TV Series IMDB Ratings",
     page_icon="📺",
     layout="wide",
 )
