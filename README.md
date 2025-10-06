@@ -62,6 +62,7 @@ This is the plot for the same show:
 
 ### Notes
 
+- I only included TV series with six or fewer seasons. Unfortunately, this includes some major shows like Game of Thrones, Mad Men, Orange is the New Black, etc.
 - This dataset contains biases much like any other ratings data. For instance, keep in mind the "survivorship bias" whereby one rates the later episodes within a season (or seasons within a show) *only* if they like it enough to keep going. 
 - The app uses absolute paths relative to the repository to find `data/`.
 - LOWESS smoothing is provided by `statsmodels`.
