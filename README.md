@@ -1,6 +1,6 @@
 # tv-series-viz
 
-Interactive visualizations of 37 TV series episodes IMDB.com ratings powered by Streamlit. You can explore the [deployed app here](https://tv-series-viz-eknffyu22xaca69wzv8av5.streamlit.app/). It lets you compare shows side-by-side on a normalized season timeline with LOWESS smoothing. 
+Interactive visualizations of 46 TV series episodes IMDB.com ratings powered by Streamlit. You can explore the [deployed app here](https://tv-series-viz-eknffyu22xaca69wzv8av5.streamlit.app/). It lets you compare shows side-by-side on a normalized season timeline with LOWESS smoothing. 
 
 This git repo contains the code to replicate the viz on your machine and gives instructions to add more shows to the database. Utility scripts can also generate static heatmaps and time series PNGs.
 
@@ -62,7 +62,7 @@ This is the plot for the same show:
 
 ### Notes
 
-- I only included TV series with six or fewer seasons. Unfortunately, this includes some major shows like Game of Thrones, Mad Men, Orange is the New Black, etc.
+- I focus mostly on TV drama series with up to seven seasons.
 - This dataset contains biases much like any other ratings data. For instance, keep in mind the "survivorship bias" whereby one rates the later episodes within a season (or seasons within a show) *only* if they like it enough to keep going. 
 - The app uses absolute paths relative to the repository to find `data/`.
 - LOWESS smoothing is provided by `statsmodels`.

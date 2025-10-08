@@ -68,7 +68,7 @@ def get_available_shows():
 # Main app
 st.title("📺 TV Drama Series Ratings")
 st.caption('Created by <a href="https://vyasenov.github.io/" target="_blank">Vasco Yasenov</a> | <a href="https://github.com/vyasenov/tv-series-viz" target="_blank">GitHub</a>', unsafe_allow_html=True)
-st.text("This app visualizes the ratings of 37 TV drama series episodes on IMDB.com. It includes shows with six or fewer seasons.")
+st.text("This app visualizes the ratings of 46 TV drama series episodes on IMDB.com.")
 
 # Get available shows
 available_shows = get_available_shows()
